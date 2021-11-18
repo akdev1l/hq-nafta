@@ -10,8 +10,14 @@ sshkey --username=akdev "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/+uQuSBwFZecLIXD
 # there's no supported way of getting the GPG keys...
 ostreesetup --ref=fedora/35/x86_64/kinoite --url=https://kojipkgs.fedoraproject.org/compose/ostree/repo --osname=kinoite --nogpg
 
+
+repo --name=rpmfusion-free-release --baseurl=http://download1.rpmfusion.org/free/fedora/releases/35/Everything/x86_64/os/ --install
+repo --name=rpmfusion-nonfree-release --baseurl=http://download1.rpmfusion.org/nonfree/fedora/releases/35/Everything/x86_64/os/ --install
+
+%packages
+akmod-nvidia xorg-x11-drv-nvidia-cuda
+%end
+
 %post
-rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-35.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-35.noarch.rpm
-rpm-ostree install akmod-nvidia xorg-x11-drv-nvidia-cuda
-rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1
+echo rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1
 %end
