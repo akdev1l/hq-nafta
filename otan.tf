@@ -40,6 +40,7 @@ resource "libvirt_domain" "otan_domain" {
     cmdline = [
         {
             "inst.stage2" = "hd:LABEL=Fedora-Knt-ostree-x86_64-35",
+            "inst.ks" = "https://raw.githubusercontent.com/akdev1l/hq-nafta/master/files/fedora/main.ks",
             "_" = "inst.text"
         }
     ]

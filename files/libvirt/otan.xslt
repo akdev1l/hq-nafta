@@ -35,11 +35,20 @@
     <xsl:template match="/domain/devices">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()" />
+            <sound model="ich9">
+                <alias name="sound0"/>
+                <address type="pci" domain="0x0000" bus="0x00" slot="0x10" function="0x0"/>
+            </sound>
+            <input type="keyboard" bus="virtio">
+                <address type="pci" domain="0x0000" bus="0x00" slot="0x11" function="0x0"/>
+            </input>
+            <input type="mouse" bus="virtio">
+                <address type="pci" domain="0x0000" bus="0x00" slot="0x12" function="0x0"/>
+            </input>
             <disk type="file" device="cdrom">
                 <driver name="qemu" type="raw"/>
                 <source file="/var/lib/workshop/current/libvirt/images/fedora.iso" />
                 <target dev="sdb" bus="sata"/>
-                <boot order="1" />
                 <readonly/>
                 <address type="drive" controller="0" bus="0" target="0" unit="1"/>
             </disk>
